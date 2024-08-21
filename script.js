@@ -2,7 +2,7 @@ const caixaPrincipal = document.querySelector(".caixa-principal");
 const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
-const textoResultado = document.querySelector(".textoResultado");
+const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
@@ -14,7 +14,7 @@ const perguntas = [
             },
             {
                 texto:"A castração de animais pode ser vista como uma intervenção desnecessária que interfere nos processos naturais de reprodução, desconsiderando que os ecossistemas têm capacidade de ajustar suas populações naturalmente",
-                afirmacao:"a tribo entende que a reprodução é necessario e nao deve ser contida"
+                afirmacao:"A tribo entende que a reprodução é necessario e nao deve ser contida."
             }
         ]
     },
@@ -23,11 +23,11 @@ const perguntas = [
         alternativas: [
             {
                 texto:"Desafiador",
-                afirmacao:"A cultura dos povos indígenas é rica e caracteriza-se pela intensa relação com a natureza.A questão da procriação é natural e vista como comum."
+                afirmacao:"A cultura dos povos indígenas é rica e caracteriza-se pela intensa relação com a natureza. A questão da procriação é natural e vista como comum."
             },
             {
                 texto:"Apoiam as medidas já tomadas",
-                afirmacao:"Em algumas culturas indígenas, a castração pode ser realizada por meio de métodos que utilizam ervas ou técnicas de restrição que são menos invasivas comparadas às cirurgias modernas. Isso reflete uma abordagem de menos é mais"
+                afirmacao:"Em algumas culturas indígenas, a castração pode ser realizada por meio de métodos que utilizam ervas ou técnicas de restrição que são menos invasivas comparadas às cirurgias modernas. Isso reflete uma abordagem de menos é mais."
             }
         ]
     },
@@ -51,9 +51,14 @@ let perguntaAtual;
 let historiaFinal = "";
 
 function mostraPergunta(){
+    if(atual >= perguntas.length){
+        mostraResultado();
+        return;
+    }
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     caixaAlternativas.textContent = "";
+    textoResultado.textContent = "";
     mostraAlternativas();
 }
 
@@ -67,8 +72,14 @@ function mostraAlternativas(){
 }
 function respostaSelecionada(opcaoSelecionada){
     const afirmacao = opcaoSelecionada.afirmacao;
-    historiaFinal = afirmacao;
+    historiaFinal += afirmacao + " ";
     atual++
     mostraPergunta(); 
 }
 mostraPergunta();
+
+function mostraResultado(){
+    caixaPerguntas.textContent = "Em 2030...";
+    textoResultado.textContent = historiaFinal;
+    caixaAlternativas.textContent = "";
+}
